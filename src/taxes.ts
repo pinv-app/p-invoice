@@ -1,35 +1,31 @@
 import { InvoiceItem, InvoiceTax } from './types';
-import { access } from 'fs';
+import * as groupByTaxName from 'lodash/groupBy';
 
-const groupBy = (items, key) => items.reduce(
-  (acc, item) => {
+const buildInvoiceTax = (acc, val) => {
+  const { product = {}, subtotal = 0, tax: taxTotal } = val,
+    { pricing = {} } = product,
+    { tax = {} } = pricing,
+    { name: taxName = '', value: taxValue = 0 } = tax;
 
-    return {
-      ...acc,
-      [item[key]]: [
-        ...(acc[item[key]] || []),
-        item,
-      ],
-    }
-  },
-  {},
-);
+  return {
+    name: taxName,
+    value: taxValue,
+    subtotal: acc.subtotal + subtotal,
+    tax: acc.tax + taxTotal,
+  };
+};
 
 export const getTaxes = (items: InvoiceItem[]): InvoiceTax[] => {
-  const taxes = items.map(item => item.product.pricing.tax);
+  const InvoiceTaxObject: InvoiceTax = { name: '', value: '', subtotal: 0, tax: 0 };
 
-  const aaa =  groupBy(taxes, 'name')
-  
-  const bbb = Object.values(aaa)
+  const groupedTaxes = groupByTaxName(items, 'product.pricing.tax.name');
 
+  const InvoiceTaxes: InvoiceTax[] = [];
 
-  // console.log(aaa);
-  return aaa;
-  // return items.reduce((acc: InvoiceTax[], item: InvoiceItem) => {
-  //   return {
-  //     ...acc, item[item.product.pricing.tax.name]: {
-  //       value: acc[item.product.pricing.tax.name].value + item.product.pricing.tax.value,
-  //     }
-  //   };
-  // }, []);
+  for (const groupedTax in groupedTaxes) {
+    const InvoiceTax = groupedTaxes[groupedTax].reduce(buildInvoiceTax, InvoiceTaxObject);
+    InvoiceTaxes.push(InvoiceTax);
+  }
+
+  return InvoiceTaxes;
 };
