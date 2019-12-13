@@ -5,7 +5,7 @@ const buildInvoiceTax = (acc, val) => {
   const { product = {}, subtotal = 0, tax: taxTotal } = val,
     { pricing = {} } = product,
     { tax = {} } = pricing,
-    { name: taxName = '', value: taxValue = 0 } = tax;
+    { name: taxName = '', value: taxValue = '' } = tax;
 
   return {
     name: taxName,

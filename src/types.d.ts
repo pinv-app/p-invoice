@@ -38,7 +38,7 @@ export declare class InvoiceProductWeight {
 
 export declare class InvoiceTotals {
   taxes: InvoiceTax[];
-  it: InvoiceTotalsOptions;
+  //it: InvoiceTotalsOptions;
   subtotal: number;
   tax: string | number;
   total: number;
