@@ -48,6 +48,8 @@ export const getTotals = (subtotal: number, taxes: InvoiceTax[], Order): Invoice
     rivalsa_tax = parseFloat(rivalsa_inps.tax) || 0
 
     it.rivalsa_inps = (subtotal * rivalsa_percentuale) / 100
+
+    console.log(subtotal, it.rivalsa_inps)
     it.imponibile_previdenziale = imponibile_previdenziale || subtotal + it.rivalsa_inps
   } else {
     it.imponibile_previdenziale = imponibile_previdenziale || subtotal

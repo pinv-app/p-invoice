@@ -209,4 +209,65 @@ describe('Totals', () => {
     })
     done()
   })
+
+  test.only('calc3', done => {
+    const taxes = [
+      {
+        value: '22',
+        subtotal: 150,
+        tax: 33,
+        name: '22',
+      },
+      {
+        name: '4',
+        value: '4',
+        tax: 0.18,
+        subtotal: 4.5,
+      },
+    ]
+
+    expect(
+      getTotals(150, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: true,
+            gestione_contributo_previdenziale: true,
+            marca_da_bollo: 2,
+            gestione_ritenuta_dacconto: true,
+            gestione_marca_da_bollo: true,
+            rivalsa_inps: {
+              tax: '4',
+              valore: '4',
+            },
+            contributo_previdenziale: {
+              tax: '4',
+              valore: '3',
+            },
+            ritenuta_dacconto: '10',
+            cliente_paga_marca_da_bollo: true,
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+          it: {
+            imponibile_previdenziale: 150,
+            imponibile_ritenuta: 150,
+          },
+        },
+      }),
+    ).toEqual({
+      taxes,
+      subtotal: 150,
+      tax: 33.42,
+      total: 180.92,
+      it: {
+        contributo_previdenziale: '4.5',
+        imponibile_previdenziale: '150',
+        imponibile_ritenuta: '150',
+        ritenuta_dacconto: '15',
+        rivalsa_inps: '6',
+      },
+    })
+    done()
+  })
 })
