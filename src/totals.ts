@@ -1,7 +1,7 @@
 import { InvoiceTax, InvoiceTotals } from './types'
 import { formatAmount } from './utils/formatAmount'
 
-export const getTotals = (subtotal: number, taxes: InvoiceTax[], Order): InvoiceTotals => {
+export const getTotals = (subtotal: number, taxes: InvoiceTax[], Invoice): InvoiceTotals => {
   const {
     invoice_option: {
       it: {
@@ -18,7 +18,7 @@ export const getTotals = (subtotal: number, taxes: InvoiceTax[], Order): Invoice
       customer_type = '',
     } = {},
     total_price: { out_subtotal = [], it: { imponibile_previdenziale = 0 } = {} } = {},
-  } = Order || {}
+  } = Invoice || {}
 
   // ----------
 
@@ -49,7 +49,6 @@ export const getTotals = (subtotal: number, taxes: InvoiceTax[], Order): Invoice
 
     it.rivalsa_inps = (subtotal * rivalsa_percentuale) / 100
 
-    console.log(subtotal, it.rivalsa_inps)
     it.imponibile_previdenziale = imponibile_previdenziale || subtotal + it.rivalsa_inps
   } else {
     it.imponibile_previdenziale = imponibile_previdenziale || subtotal
@@ -84,6 +83,7 @@ export const getTotals = (subtotal: number, taxes: InvoiceTax[], Order): Invoice
     subtotal,
     tax: formatAmount(totalTaxes),
     total: formatAmount(total),
+
     it: {
       contributo_previdenziale: it.contributo_previdenziale.toString(),
       imponibile_previdenziale: it.imponibile_previdenziale.toString(),

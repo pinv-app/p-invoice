@@ -8,13 +8,14 @@ export declare class Invoice {
 
 export declare class InvoiceItem {
   product: InvoiceProduct
-  quantity: number
+
   subtotal?: number
   tax?: string | number
 }
 
 export declare class InvoiceProduct {
   pricing: InvoiceProductPrice
+  quantity: number
   weight?: InvoiceProductWeight
   subtotal?: number
 }

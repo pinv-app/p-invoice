@@ -3,8 +3,8 @@ import * as groupByTaxName from 'lodash/groupBy'
 import { formatAmount } from './utils/formatAmount'
 
 const buildInvoiceTax = (acc, val) => {
-  const { product = {}, subtotal = 0, tax: taxTotal } = val,
-    { pricing = {} } = product,
+  const { product = {} } = val,
+    { pricing = {}, subtotal } = product,
     { tax = {} } = pricing,
     { name: taxName = '', value: taxValue = '' } = tax
 
@@ -12,7 +12,7 @@ const buildInvoiceTax = (acc, val) => {
     name: taxName,
     value: taxValue,
     subtotal: acc.subtotal + subtotal,
-    tax: acc.tax + taxTotal,
+    tax: acc.tax + (subtotal * taxValue) / 100,
   }
 }
 

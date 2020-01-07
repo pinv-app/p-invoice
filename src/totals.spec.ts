@@ -210,7 +210,7 @@ describe('Totals', () => {
     done()
   })
 
-  test.only('calc3', done => {
+  test('calc3', done => {
     const taxes = [
       {
         value: '22',
