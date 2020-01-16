@@ -3,8 +3,7 @@ import { getSubtotal } from './subtotal'
 import { getTaxes } from './taxes'
 import { getTotals } from './totals'
 
-export default Order => {
-  const { invoice } = Order
+export default invoice => {
   const { item: InvoiceItem = [] } = invoice
 
   const item = InvoiceItem.map(getItem)
@@ -14,11 +13,8 @@ export default Order => {
   const total_price = getTotals(subtotal, taxes, invoice)
 
   return {
-    ...Order,
-    invoice: {
-      ...invoice,
-      item,
-      total_price,
-    },
+    ...invoice,
+    item,
+    total_price,
   }
 }
