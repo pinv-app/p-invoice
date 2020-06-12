@@ -4,6 +4,7 @@ export declare class Invoice {
   invoice_option: InvoiceOption
   payment_option: InvoicePayment[]
   sold_by_weight: boolean
+  date: Date
 }
 
 export declare class InvoiceItem {
@@ -66,14 +67,14 @@ export declare class InvoicePayment {
   number: number
   deadline: number
   end_month: boolean
-  expiration_date: string
+  expiration_date: Date
   percentage: number
   subtotal: number
   tax: number
   total: number
   tax_deductible: number
   payed: boolean
-  payment_date: string
+  payment_date: Date
 }
 
 export declare class GetItemOptions {
