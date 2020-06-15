@@ -67,14 +67,14 @@ export declare class InvoicePayment {
   number: number
   deadline: number
   end_month: boolean
-  expiration_date: Date
+  expiration_date: Date | string
   percentage: number
   subtotal: number
   tax: number
   total: number
   tax_deductible: number
   payed: boolean
-  payment_date: Date
+  payment_date: Date | string
 }
 
 export declare class GetItemOptions {

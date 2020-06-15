@@ -1,7 +1,7 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index',
   output: {
     path: __dirname + '/dist',
     filename: 'index.js',
@@ -9,15 +9,16 @@ module.exports = {
     libraryTarget: 'umd',
   },
   target: 'node',
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.(ts|js)$/, exclude: /node_modules/, loader: 'babel-loader' },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-  ],
+  plugins: [new CleanWebpackPlugin()],
   optimization: {
     minimize: true,
   },
-};
+}

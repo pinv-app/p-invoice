@@ -2,10 +2,9 @@ import { getItem } from './item'
 import { getSubtotal } from './subtotal'
 import { getTaxes } from './taxes'
 import { getTotals } from './totals'
-import { Invoice } from './types'
 import { calculateDates } from './dates'
 
-export default (invoice: Invoice) => {
+export default (invoice) => {
   const {
     item: InvoiceItem = [],
     date,
