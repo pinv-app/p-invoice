@@ -5,6 +5,8 @@ import { getTotals } from './totals'
 import { calculateDates } from './dates'
 
 export default (invoice) => {
+  if (!invoice) throw new Error('No invoice received passed as argument!')
+
   const {
     item: InvoiceItem = [],
     date,
