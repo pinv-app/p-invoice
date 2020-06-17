@@ -17,7 +17,7 @@ export const getTotals = (subtotal: number, taxes: InvoiceTax[], Invoice): Invoi
       } = {},
       customer_type = '',
     } = {},
-    total_price: { out_subtotal = [], it: { imponibile_previdenziale = 0 } = {} } = {},
+    total_price: { out_subtotal = [], it: { imponibile_previdenziale = 0,imponibile_ritenuta= 0 } = {} } = {},
   } = Invoice || {}
 
   // ----------
@@ -64,7 +64,7 @@ export const getTotals = (subtotal: number, taxes: InvoiceTax[], Invoice): Invoi
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && (!customer_type || customer_type === 'company') && parseFloat(ritenuta_dacconto) > 0) {
-    it.imponibile_ritenuta = it.imponibile_ritenuta || subtotal
+    it.imponibile_ritenuta = imponibile_ritenuta || subtotal
     it.ritenuta_dacconto = (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
   }
 
