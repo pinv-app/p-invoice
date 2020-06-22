@@ -11,9 +11,10 @@ export default (invoice) => {
     item: InvoiceItem = [],
     date,
     payment_option: paymentOptions,
+    sold_by_weight,
   } = invoice
 
-  const item = InvoiceItem.map((item) => getItem(item))
+  const item = InvoiceItem.map((item) => getItem(item, { sold_by_weight }))
   const subtotal = getSubtotal(item)
   const taxes = getTaxes(item)
 
