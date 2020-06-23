@@ -34,8 +34,8 @@ describe('Subtotal', () => {
     ]
 
     expect(getTaxes(items)).toEqual([
-      { name: '10', value: 10, subtotal: 18, tax: 1.8 },
-      { name: '22', value: 22, subtotal: 20, tax: 4.4 },
+      { name: '10', value: 10, nature: '', subtotal: 18, tax: 1.8 },
+      { name: '22', value: 22, nature: '', subtotal: 20, tax: 4.4 },
     ])
 
     done()
