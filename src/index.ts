@@ -21,15 +21,8 @@ export default (invoice) => {
   const taxes = getTaxes(item)
 
   const total_price = getTotals(subtotal, taxes, invoice)
-  const payment_option = updateTotals(
-    calcTotalsFromPercentages(
-      calculateDates(
-        date,
-        calculateDeadlineAndPercentageOptions(paymentOptions),
-      ),
-      invoice_option,
-      total_price,
-    ),
+  const payment_option = calcTotalsFromPercentages(
+    calculateDates(date, calculateDeadlineAndPercentageOptions(paymentOptions)),
     invoice_option,
     total_price,
   )
@@ -91,57 +84,57 @@ function calcTotalsFromPercentages(
   })
 }
 
-function updateTotals(
-  payment_option: InvoicePayment[] = [],
-  invoice_option: InvoiceOption,
-  total_price: InvoiceTotals,
-) {
-  var paymentSubtotal = 0,
-    paymentTax = 0
-  const numPayments = payment_option.length
-  let tempTotal = 0
-  let total = 0
-  let tax = 0
-  let total_deductible = 0
-  let percTax = 0
+// function updateTotals(
+//   payment_option: InvoicePayment[] = [],
+//   invoice_option: InvoiceOption,
+//   total_price: InvoiceTotals,
+// ) {
+//   var paymentSubtotal = 0,
+//     paymentTax = 0
+//   const numPayments = payment_option.length
+//   let tempTotal = 0
+//   let total = 0
+//   let tax = 0
+//   let total_deductible = 0
+//   let percTax = 0
 
-  const { it: invoice_option_it } = invoice_option
-  const { esigibilita_iva = 'I' } = invoice_option_it
+//   const { it: invoice_option_it } = invoice_option
+//   const { esigibilita_iva = 'I' } = invoice_option_it
 
-  if (esigibilita_iva === 'S') {
-    total = (total_price.total || 0) - (Number(total_price.tax) || 0)
-  } else {
-    total = total_price.total || 0
-  }
+//   if (esigibilita_iva === 'S') {
+//     total = (total_price.total || 0) - (Number(total_price.tax) || 0)
+//   } else {
+//     total = total_price.total || 0
+//   }
 
-  tax = Number(total_price.tax) || 0
-  total_deductible = total_price.total_deductible || 0
+//   tax = Number(total_price.tax) || 0
+//   total_deductible = total_price.total_deductible || 0
 
-  total_price.total = Math.round(total_price.total * 100) / 100
-  total_price.total_deductible = Math.round(total_deductible * 100) / 100
+//   total_price.total = Math.round(total_price.total * 100) / 100
+//   total_price.total_deductible = Math.round(total_deductible * 100) / 100
 
-  percTax = (tax * 100) / total
+//   percTax = (tax * 100) / total
 
-  return payment_option.map(function (payment, index) {
-    payment.number = index + 1
+//   return payment_option.map(function (payment, index) {
+//     payment.number = index + 1
 
-    if (index === numPayments - 1) {
-      payment.total = total - tempTotal
-      payment.total = Math.round(payment.total * 100) / 100
-    }
+//     if (index === numPayments - 1) {
+//       payment.total = total - tempTotal
+//       payment.total = Math.round(payment.total * 100) / 100
+//     }
 
-    tempTotal += payment.total
+//     tempTotal += payment.total
 
-    payment.percentage = Math.round(((payment.total * 100) / total) * 100) / 100
+//     payment.percentage = Math.round(((payment.total * 100) / total) * 100) / 100
 
-    paymentTax = (payment.total * percTax) / 100
-    paymentTax = Math.round(paymentTax * 100) / 100
-    paymentSubtotal = payment.total - paymentTax
-    paymentSubtotal = Math.round(paymentSubtotal * 100) / 100
+//     paymentTax = (payment.total * percTax) / 100
+//     paymentTax = Math.round(paymentTax * 100) / 100
+//     paymentSubtotal = payment.total - paymentTax
+//     paymentSubtotal = Math.round(paymentSubtotal * 100) / 100
 
-    payment.subtotal = paymentSubtotal
-    payment.tax = paymentTax
+//     payment.subtotal = paymentSubtotal
+//     payment.tax = paymentTax
 
-    return payment
-  })
-}
+//     return payment
+//   })
+// }
