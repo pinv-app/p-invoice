@@ -10,7 +10,7 @@ export const calculateDates = (
   return paymentOptions.map((payment) => {
     const { deadline, end_month, payed } = payment
 
-    let payment_date = new Date(payment.payment_date).toISOString()
+    let payment_date = payment.payment_date
     let expiration_date = payment.expiration_date
 
     if (deadline % 30 === 0 && end_month) {
@@ -25,7 +25,7 @@ export const calculateDates = (
       ).toISOString()
     }
 
-    if (!payed) payment_date = expiration_date
+    payment_date = new Date(expiration_date).toISOString()
 
     return {
       ...payment,

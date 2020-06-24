@@ -84,7 +84,7 @@ describe('Dates', () => {
         total: 1.22,
         tax_deductible: 0,
         payed: true,
-        payment_date: '2020-07-31T00:00:00.000Z',
+        payment_date: '2020-07-31T21:59:59.999Z',
       },
     ]
 
