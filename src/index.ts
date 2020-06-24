@@ -141,5 +141,7 @@ function updateTotals(
 
     payment.subtotal = paymentSubtotal
     payment.tax = paymentTax
+
+    return payment
   })
 }
