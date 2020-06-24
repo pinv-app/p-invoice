@@ -22,7 +22,7 @@ export default (invoice) => {
 
   const total_price = getTotals(subtotal, taxes, invoice)
   const payment_option = calcTotalsFromPercentages(
-    calculateDates(date, calculateDeadlineAndPercentageOptions(paymentOptions)),
+    calculateDates(date, paymentOptions),
     invoice_option,
     total_price,
   )
@@ -33,19 +33,6 @@ export default (invoice) => {
     total_price,
     payment_option,
   }
-}
-
-function calculateDeadlineAndPercentageOptions(
-  payment_option: InvoicePayment[],
-) {
-  const length = payment_option.length
-
-  return payment_option.map((payment, index) => {
-    payment.percentage = Math.round((100 / length) * 100) / 100
-    payment.deadline = payment.deadline * (index + 1)
-
-    return payment
-  })
 }
 
 function calcTotalsFromPercentages(
