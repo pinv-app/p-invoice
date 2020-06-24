@@ -43,6 +43,7 @@ export declare class InvoiceTotals {
   subtotal: number
   tax: string | number
   total: number
+  total_deductible?: number
 }
 
 export declare class InvoiceTax {
@@ -61,7 +62,11 @@ export declare class InvoiceTotalsOptions {
   rivalsa_inps: string
 }
 
-export declare class InvoiceOption {}
+export declare class InvoiceOption {
+  it: {
+    esigibilita_iva: string
+  }
+}
 
 export declare class InvoicePayment {
   number: number
