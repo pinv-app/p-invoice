@@ -1,4 +1,4 @@
-import { calculateDates } from './dates'
+import { calculateDates } from './payments'
 
 describe('Dates', () => {
   test('should recalculate dates', () => {
