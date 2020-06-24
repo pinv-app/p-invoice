@@ -68,15 +68,13 @@ function calcTotalsFromPercentages(
   }
 
   return payment_option.map((payment, index) => {
-    var percentage = payment.percentage
-
     if (index === numPayments - 1) {
-      payment.percentage = percentage = 100 - tempPerc
+      payment.percentage = 100 - tempPerc
     }
 
-    tempPerc += percentage
+    tempPerc += payment.percentage
 
-    paymentTotal = (total * percentage) / 100
+    paymentTotal = (total * payment.percentage) / 100
     paymentTotal = Math.round(paymentTotal * 100) / 100
     payment.total = paymentTotal
 
