@@ -1,4 +1,4 @@
-import { addMonths, endOfMonth, addDays } from 'date-fns'
+import { addMonths, endOfMonth, addDays, isDate } from 'date-fns'
 import { InvoicePayment, InvoiceOption, InvoiceTotals } from './types'
 
 export const calculatePayments = (
@@ -23,8 +23,13 @@ export const calculateDates = (
   return paymentOptions.map((payment) => {
     const { deadline, end_month, payed } = payment
 
-    let payment_date = payment.payment_date
-    let expiration_date = payment.expiration_date
+    let payment_date = isDate(payment.payment_date)
+      ? payment.payment_date
+      : new Date()
+
+    let expiration_date = isDate(payment.expiration_date)
+      ? payment.expiration_date
+      : new Date()
 
     if (deadline % 30 === 0 && end_month) {
       expiration_date = endOfMonth(
