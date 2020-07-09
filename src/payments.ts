@@ -58,10 +58,12 @@ export const calcTotalsFromPercentages = (
   invoice_option: InvoiceOption,
   total_price: InvoiceTotals,
 ) => {
-  let paymentTotal = 0
   const numPayments = payment_option.length
   let tempPerc = 0
   let total = 0
+  let total_deductible = 0
+  let tax = 0
+  let percTax = 0
 
   const { it: invoice_option_it } = invoice_option || {}
   const { esigibilita_iva = 'I' } = invoice_option_it || {}
@@ -72,6 +74,14 @@ export const calcTotalsFromPercentages = (
     total = total_price.total || 0
   }
 
+  tax = Number(total_price.tax || 0)
+  total_deductible = total_price.total_deductible || 0
+
+  total_price.total = Math.round(total_price.total * 100) / 100
+  total_price.total_deductible = Math.round(total_deductible * 100) / 100
+
+  percTax = (tax * 100) / total
+
   return payment_option.map((payment, index) => {
     if (index === numPayments - 1) {
       payment.percentage = 100 - tempPerc
@@ -79,9 +89,14 @@ export const calcTotalsFromPercentages = (
 
     tempPerc += payment.percentage
 
-    paymentTotal = (total * payment.percentage) / 100
-    paymentTotal = Math.round(paymentTotal * 100) / 100
+    const paymentTotal =
+      Math.round(((total * payment.percentage) / 100) * 100) / 100
+    const paymentTax = Math.round(((payment.total * percTax) / 100) * 100) / 100
+    const paymentSubtotal = Math.round((payment.total - paymentTax) * 100) / 100
+
     payment.total = paymentTotal
+    payment.tax = paymentTax
+    payment.subtotal = paymentSubtotal
 
     return payment
   })
