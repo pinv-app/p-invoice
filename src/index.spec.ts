@@ -245,6 +245,13 @@ const expected = {
         tax: 440,
         name: '22',
       },
+      {
+        name: '',
+        nature: '',
+        subtotal: 0,
+        tax: 0,
+        value: '0',
+      },
     ],
   },
   transport: {

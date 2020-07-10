@@ -93,8 +93,8 @@ describe('Totals', () => {
     ).toEqual({
       taxes,
       subtotal: 231,
-      tax: 52.76,
-      total: 304.93,
+      tax: 54.7,
+      total: 306.87,
       it: {
         contributo_previdenziale: '16.17',
         imponibile_previdenziale: '231',
@@ -147,8 +147,8 @@ describe('Totals', () => {
     ).toEqual({
       taxes,
       subtotal: 3765,
-      tax: 933.96,
-      total: 4729.42,
+      tax: 940.22,
+      total: 4735.68,
       it: {
         contributo_previdenziale: '28.4592',
         imponibile_previdenziale: '258.72',
@@ -258,8 +258,8 @@ describe('Totals', () => {
     ).toEqual({
       taxes,
       subtotal: 150,
-      tax: 33.42,
-      total: 180.92,
+      tax: 33.6,
+      total: 181.1,
       it: {
         contributo_previdenziale: '4.5',
         imponibile_previdenziale: '150',

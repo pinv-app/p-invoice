@@ -33,6 +33,8 @@ export const getTotals = (
   let total = subtotal + totalTaxes
 
   let contributo_previdenziale_percentuale = 0,
+    contributo_previdenziale_tax = 0,
+    contributo_previdenziale_natura = '',
     rivalsa_percentuale = 0,
     rivalsa_tax = 0
 
@@ -48,6 +50,8 @@ export const getTotals = (
   if (gestione_contributo_previdenziale) {
     contributo_previdenziale_percentuale =
       parseFloat(contributo_previdenziale.valore) || 0
+    contributo_previdenziale_tax = parseFloat(contributo_previdenziale.tax || 0)
+    contributo_previdenziale_natura = contributo_previdenziale.nature || ''
   }
 
   // Gestione separata INPS (rivalsa INPS)
@@ -70,6 +74,22 @@ export const getTotals = (
   // IVA su rivalsa INPS
   if (it.rivalsa_inps) {
     totalTaxes = totalTaxes + (it.rivalsa_inps * rivalsa_tax) / 100
+  }
+
+  // IVA su contributo_previdenziale
+  if (contributo_previdenziale) {
+    const contributoTax =
+      (it.contributo_previdenziale * contributo_previdenziale_tax) / 100
+    totalTaxes += contributoTax
+
+    // Iva Cassa Previdenziale aggiunta al riepilogo IVA
+    taxes.push({
+      name: contributo_previdenziale.name || '',
+      value: contributo_previdenziale_tax.toString(),
+      tax: contributoTax,
+      subtotal: it.contributo_previdenziale,
+      nature: contributo_previdenziale_natura,
+    })
   }
 
   // Ritenuta d'acconto

@@ -12,8 +12,8 @@ const buildInvoiceTax = (acc, val) => {
     name: taxName,
     value: taxValue,
     nature,
-    subtotal: acc.subtotal + subtotal,
-    tax: acc.tax + (subtotal * taxValue) / 100,
+    subtotal: formatAmount(acc.subtotal + subtotal),
+    tax: formatAmount(acc.tax + (subtotal * taxValue) / 100),
   }
 }
 
