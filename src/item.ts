@@ -1,25 +1,29 @@
-import { InvoiceItem, GetItemOptions } from './types';
+import { InvoiceItem, GetItemOptions } from './types'
+import { formatAmount } from './utils/formatAmount'
 
-export const getItem = (item: InvoiceItem, options?: GetItemOptions): InvoiceItem => {
+export const getItem = (
+  item: InvoiceItem,
+  options?: GetItemOptions,
+): InvoiceItem => {
   const {
     quantity,
     product: {
-      pricing: {
-        list = 0,
-        tax: {
-          value: taxValue = 22,
-        } = {},
-      } = {},
-      weight: {
-        net = 0,
-      } = {},
+      pricing: { list = 0, tax: { value: taxValue = 22 } = {} } = {},
+      weight: { net = 0 } = {},
     } = {},
-  } = item;
+  } = item
 
-  const { sold_by_weight } = options || {};
+  const { sold_by_weight } = options || {}
 
-  const subtotal = sold_by_weight === true && net !== 0 ? list * net : quantity * list;
+  let subtotal
+
+  if (sold_by_weight && net !== 0) {
+    subtotal = formatAmount(list * net)
+  } else {
+    subtotal = formatAmount(quantity * list)
+  }
+
   const product = { ...item.product, subtotal, tax: taxValue }
 
   return { ...item, product }
-};
+}

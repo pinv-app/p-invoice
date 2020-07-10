@@ -1,5 +1,6 @@
 import { addMonths, endOfMonth, addDays, isDate } from 'date-fns'
 import { InvoicePayment, InvoiceOption, InvoiceTotals } from './types'
+import { formatAmount } from './utils/formatAmount'
 
 export const calculatePayments = (
   paymentOptions: InvoicePayment[],
@@ -86,9 +87,9 @@ export const calcTotalsFromPercentages = (
     const paymentTax = Math.round(((paymentTotal * percTax) / 100) * 100) / 100
     const paymentSubtotal = Math.round((paymentTotal - paymentTax) * 100) / 100
 
-    payment.total = paymentTotal
-    payment.tax = paymentTax
-    payment.subtotal = paymentSubtotal
+    payment.total = formatAmount(paymentTotal)
+    payment.tax = formatAmount(paymentTax)
+    payment.subtotal = formatAmount(paymentSubtotal)
 
     return payment
   })
