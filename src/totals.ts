@@ -77,14 +77,14 @@ export const getTotals = (
   }
 
   // IVA su contributo_previdenziale
-  if (contributo_previdenziale) {
+  if (gestione_contributo_previdenziale) {
     const contributoTax =
       (it.contributo_previdenziale * contributo_previdenziale_tax) / 100
     totalTaxes += contributoTax
 
     // Iva Cassa Previdenziale aggiunta al riepilogo IVA
     taxes.push({
-      name: contributo_previdenziale.name || '',
+      name: contributo_previdenziale.nome || '',
       value: contributo_previdenziale_tax.toString(),
       tax: contributoTax,
       subtotal: it.contributo_previdenziale,
