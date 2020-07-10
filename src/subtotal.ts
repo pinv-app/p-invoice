@@ -3,6 +3,6 @@ import { formatAmount } from './utils/formatAmount'
 
 export const getSubtotal = (items: InvoiceItem[]): number => {
   return formatAmount(
-    items.reduce((acc, item) => acc + item.product.subtotal, 0),
+    items.reduce((acc, { product = {} }) => acc + product.subtotal || 0, 0),
   )
 }

@@ -6,7 +6,7 @@ export const getItem = (
   options?: GetItemOptions,
 ): InvoiceItem => {
   const {
-    quantity,
+    quantity = 1,
     product: {
       pricing: { list = 0, tax: { value: taxValue = 22 } = {} } = {},
       weight: { net = 0 } = {},
@@ -15,7 +15,7 @@ export const getItem = (
 
   const { sold_by_weight } = options || {}
 
-  let subtotal
+  let subtotal: number;
 
   if (sold_by_weight && net !== 0) {
     subtotal = formatAmount(list * net)
