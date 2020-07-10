@@ -1,7 +1,7 @@
 import { getTotals } from './totals'
 
 describe('Totals', () => {
-  test('calc1', done => {
+  test('calc1', (done) => {
     const taxes = [
       {
         value: '22',
@@ -50,7 +50,7 @@ describe('Totals', () => {
     done()
   })
 
-  test('calc2', done => {
+  test('calc2', (done) => {
     const taxes = [
       {
         name: '22',
@@ -106,7 +106,7 @@ describe('Totals', () => {
     done()
   })
 
-  test('calc3', done => {
+  test('calc3', (done) => {
     const taxes = [
       {
         value: '22',
@@ -147,8 +147,8 @@ describe('Totals', () => {
     ).toEqual({
       taxes,
       subtotal: 3765,
-      tax: 933.957024,
-      total: 4729.416224,
+      tax: 933.96,
+      total: 4729.42,
       it: {
         contributo_previdenziale: '28.4592',
         imponibile_previdenziale: '258.72',
@@ -160,7 +160,7 @@ describe('Totals', () => {
     done()
   })
 
-  test('calc3', done => {
+  test('calc3', (done) => {
     const taxes = [
       {
         value: '22',
@@ -210,7 +210,7 @@ describe('Totals', () => {
     done()
   })
 
-  test('calc3', done => {
+  test('calc3', (done) => {
     const taxes = [
       {
         value: '22',
