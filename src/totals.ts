@@ -33,6 +33,7 @@ export const getTotals = (
   let total = subtotal + totalTaxes
 
   let contributo_previdenziale_percentuale = 0,
+    subtotale_previdenziale = 0,
     contributo_previdenziale_tax = 0,
     contributo_previdenziale_natura = '',
     rivalsa_percentuale = 0,
@@ -64,12 +65,13 @@ export const getTotals = (
     it.imponibile_previdenziale =
       imponibile_previdenziale || subtotal + it.rivalsa_inps
   } else {
-    it.imponibile_previdenziale = imponibile_previdenziale || subtotal
+    it.imponibile_previdenziale = Number(imponibile_previdenziale) || subtotal
   }
 
   // Calcolo contributo_previdenziale
+  subtotale_previdenziale = Number(it.imponibile_previdenziale)
   it.contributo_previdenziale =
-    (it.imponibile_previdenziale * contributo_previdenziale_percentuale) / 100
+    (subtotale_previdenziale * contributo_previdenziale_percentuale) / 100
 
   // IVA su rivalsa INPS
   if (it.rivalsa_inps) {
@@ -123,7 +125,6 @@ export const getTotals = (
     subtotal: formatAmount(subtotal),
     tax: formatAmount(totalTaxes),
     total: formatAmount(total),
-
     it: {
       contributo_previdenziale: it.contributo_previdenziale.toString(),
       imponibile_previdenziale: it.imponibile_previdenziale.toString(),
