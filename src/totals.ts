@@ -65,7 +65,7 @@ export const getTotals = (
     it.imponibile_previdenziale =
       imponibile_previdenziale || subtotal + it.rivalsa_inps
   } else {
-    it.imponibile_previdenziale = imponibile_previdenziale || subtotal
+    it.imponibile_previdenziale = Number(imponibile_previdenziale) || subtotal
   }
 
   // Calcolo contributo_previdenziale
