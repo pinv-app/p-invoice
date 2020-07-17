@@ -41,7 +41,7 @@ describe('Totals', () => {
       total: 17.08,
       it: {
         contributo_previdenziale: '0',
-        imponibile_previdenziale: '14',
+        imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
@@ -93,11 +93,11 @@ describe('Totals', () => {
     ).toEqual({
       taxes,
       subtotal: 231,
-      tax: 54.7,
-      total: 306.87,
+      tax: 52.76,
+      total: 288.76,
       it: {
-        contributo_previdenziale: '16.17',
-        imponibile_previdenziale: '231',
+        contributo_previdenziale: '0',
+        imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
@@ -201,7 +201,7 @@ describe('Totals', () => {
       total: 267.96,
       it: {
         contributo_previdenziale: '0',
-        imponibile_previdenziale: '218',
+        imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
