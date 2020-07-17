@@ -16,7 +16,7 @@ export const calculatePayments = (
 }
 
 export const calculateDates = (
-  date: string | Date,
+  date: string | Date = new Date(),
   paymentOptions: InvoicePayment[],
 ) => {
   const transformedDate = isDate(new Date(date)) ? new Date(date) : new Date()
