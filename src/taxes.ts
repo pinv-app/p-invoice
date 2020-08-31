@@ -13,7 +13,7 @@ const buildInvoiceTax = (acc, val) => {
     value: taxValue,
     nature,
     subtotal: formatAmount(acc.subtotal + subtotal),
-    tax: formatAmount(acc.tax + (subtotal * taxValue) / 100),
+    // tax: formatAmount(acc.tax + (subtotal * taxValue) / 100),
   }
 }
 
@@ -44,7 +44,7 @@ export const getTaxes = (items: InvoiceItem[]): InvoiceTax[] => {
       value: invoiceTax.value,
       nature: invoiceTax.nature,
       subtotal: formatAmount(invoiceTax.subtotal),
-      tax: formatAmount(invoiceTax.tax),
+      tax: formatAmount((invoiceTax.subtotal * parseFloat(invoiceTax.value)) / 100),
     }
   })
 }
