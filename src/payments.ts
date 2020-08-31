@@ -1,4 +1,4 @@
-import { addMonths, endOfMonth, addDays, isDate } from 'date-fns'
+import { addMonths, endOfMonth, addDays, isDate, setHours } from 'date-fns'
 import { InvoicePayment, InvoiceOption, InvoiceTotals } from './types'
 import { formatAmount } from './utils/formatAmount'
 
@@ -20,36 +20,37 @@ export const calculateDates = (
   paymentOptions: InvoicePayment[],
 ) => {
   const transformedDate = isDate(new Date(date)) ? new Date(date) : new Date()
+  transformedDate.setHours(12, 0, 0, 0)
 
   return paymentOptions.map((payment) => {
     const { deadline, end_month } = payment
 
-    let payment_date = isDate(payment.payment_date)
-      ? payment.payment_date
-      : new Date()
-
-    let expiration_date = isDate(payment.expiration_date)
-      ? payment.expiration_date
-      : new Date()
+    let expiration_date
 
     if (deadline % 30 === 0 && end_month) {
       expiration_date = endOfMonth(
         addMonths(transformedDate, deadline / 30),
-      ).toISOString()
-    } else if (deadline % 30 === 0 && !end_month) {
-      expiration_date = addDays(transformedDate, deadline).toISOString()
-    } else {
+      )
+    } else if (end_month) {
       expiration_date = endOfMonth(
         addDays(transformedDate, deadline),
-      ).toISOString()
+      )
+    } else {
+      expiration_date = addDays(transformedDate, deadline)
     }
 
-    payment_date = new Date(expiration_date).toISOString()
+    expiration_date.setHours(12, 0, 0, 0)
+
+    let payment_date = isDate(payment.payment_date) && payment.payed
+      ? new Date(payment.payment_date)
+      : expiration_date
+
+    payment_date.setHours(12, 0, 0, 0)
 
     return {
       ...payment,
-      payment_date,
-      expiration_date,
+      payment_date: payment_date.toISOString(),
+      expiration_date: expiration_date.toISOString(),
     }
   })
 }
