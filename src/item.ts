@@ -18,9 +18,9 @@ export const getItem = (
   let subtotal: number;
 
   if (sold_by_weight && net !== 0) {
-    subtotal = formatAmount(list * net)
+    subtotal = formatAmount(list * net, 6)
   } else {
-    subtotal = formatAmount(quantity * list)
+    subtotal = formatAmount(quantity * list, 6)
   }
 
   const product = { ...item.product, subtotal, tax: taxValue }

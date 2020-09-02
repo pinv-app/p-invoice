@@ -33,6 +33,38 @@ describe('Item', () => {
     done();
   });
 
+  test('should calculate item total with more than 2 decimals', (done) => {
+    const item = getItem({
+      quantity: 2.12345,
+      product: {
+        pricing: {
+          list: 10.54,
+          tax: {
+            name: '22',
+            value: 22
+          },
+        },
+      },
+    });
+
+    expect(item).toEqual({
+      quantity: 2.12345,
+      product: {
+        pricing: {
+          list: 10.54,
+          tax: {
+            name: '22',
+            value: 22
+          },
+        },
+        subtotal: 22.381163,
+        tax: 22,
+      },
+    });
+
+    done();
+  });
+
   test('should calculate item if it is sold by weight', (done) => {
     const options = { sold_by_weight: true };
 

@@ -91,8 +91,8 @@ export const getTotals = (
     taxes.push({
       name: contributo_previdenziale.nome || '',
       value: contributo_previdenziale_tax.toString(),
-      tax: contributoTax,
-      subtotal: it.contributo_previdenziale,
+      tax: formatAmount(contributoTax),
+      subtotal: formatAmount(it.contributo_previdenziale),
       nature: contributo_previdenziale_natura,
     })
   }

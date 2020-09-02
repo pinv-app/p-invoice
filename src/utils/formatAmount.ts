@@ -1,4 +1,7 @@
-export const formatAmount = (amount) => +formatAmountStr(amount)
+export const formatAmount = (amount: number | string, decimals: number = 2): number => +formatAmountStr(amount, decimals)
 
-export const formatAmountStr = (amount) =>
-  (Math.round((parseFloat(amount) + 0.00000001) * 1000000) / 1000000).toFixed(2)
+export const formatAmountStr = (amount: number | string, decimals: number = 2): string => {
+  const amountValue = typeof amount === 'string' ? parseFloat(amount) : amount
+
+  return (Math.round((amountValue + 0.00000001) * 1000000) / 1000000).toFixed(decimals)
+}
