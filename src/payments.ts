@@ -49,8 +49,8 @@ export const calculateDates = (
 
     return {
       ...payment,
-      payment_date: payment_date.toISOString(),
-      expiration_date: expiration_date.toISOString(),
+      payment_date: (new Date(payment_date)).toISOString(),
+      expiration_date: (new Date(expiration_date)).toISOString(),
     }
   })
 }
