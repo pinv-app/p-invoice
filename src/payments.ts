@@ -24,7 +24,7 @@ export const calculateDates = (
   console.log('transformedDate 1', transformedDate)
   return paymentOptions.map((payment) => {
     console.log('payment', payment)
-    const { deadline, end_month } = payment
+    const { deadline = 0, end_month = false } = payment
 
     let expiration_date
 
