@@ -12,7 +12,8 @@ export const getItem = (
         list = 0,
         tax: {
           value: taxValue = 0,
-          name: taxName = '0'
+          name: taxName = '0',
+          nature = '',
         } = {},
       } = {},
       weight: { net = 0 } = {},
@@ -30,7 +31,7 @@ export const getItem = (
   }
 
   const { pricing } = item.product || {}
-  const productPricing = { ...pricing, list, tax: { value: taxValue, name: taxName } }
+  const productPricing = { ...pricing, list, tax: { value: taxValue, name: taxName, nature } }
   const product = { ...item.product, pricing: productPricing, subtotal, tax: taxValue }
 
   return { ...item, product }

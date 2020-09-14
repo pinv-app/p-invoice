@@ -21,9 +21,8 @@ export const calculateDates = (
 ) => {
   const transformedDate = isDate(new Date(date)) ? new Date(date) : new Date()
   transformedDate.setHours(12, 0, 0, 0)
-  console.log('transformedDate 1', transformedDate)
+
   return paymentOptions.map((payment) => {
-    console.log('payment', payment)
     const { deadline = 0, end_month = false } = payment
 
     let expiration_date
@@ -32,32 +31,21 @@ export const calculateDates = (
       expiration_date = endOfMonth(
         addMonths(transformedDate, deadline / 30),
       )
-      console.log('expiration_date 1', expiration_date)
     } else if (end_month) {
       expiration_date = endOfMonth(
         addDays(transformedDate, deadline),
       )
-      console.log('expiration_date 2', expiration_date)
     } else {
       expiration_date = addDays(transformedDate, deadline)
-      console.log('expiration_date 3', expiration_date)
     }
 
     expiration_date.setHours(12, 0, 0, 0)
-    console.log('expiration_date 4', expiration_date)
 
     let payment_date = isDate(payment.payment_date) && payment.payed
       ? new Date(payment.payment_date)
       : expiration_date
 
     payment_date.setHours(12, 0, 0, 0)
-    console.log('payment_date', payment_date)
-
-    console.log('return value', {
-      ...payment,
-      payment_date: (new Date(payment_date)).toISOString(),
-      expiration_date: (new Date(expiration_date)).toISOString(),
-    })
 
     return {
       ...payment,

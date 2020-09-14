@@ -36,6 +36,20 @@ const invoice = {
       },
       quantity: 2,
     },
+    {
+      product: {
+        title: 'Consulenza www',
+        pricing: {
+          tax: {
+            name: '0',
+            value: 0,
+            nature: 'N1',
+          },
+          list: 100,
+        },
+      },
+      quantity: 1,
+    },
   ],
   payment_option: [
     {
@@ -175,6 +189,21 @@ const expected = {
       },
       quantity: 2,
     },
+    {
+      product: {
+        title: 'Consulenza www',
+        pricing: {
+          tax: {
+            name: '0',
+            value: 0,
+            nature: 'N1',
+          },
+          list: 100,
+        },
+        subtotal: 100,
+      },
+      quantity: 1,
+    },
   ],
   payment_option: [
     {
@@ -187,9 +216,9 @@ const expected = {
       payment_date: '2020-01-31T11:00:00.000Z',
       payed: false,
       tax_deductible: 0,
-      total: 3661.23,
+      total: 3761.23,
       tax: 660.22,
-      subtotal: 3001.01,
+      subtotal: 3101.01,
       expiration_date: '2020-01-31T11:00:00.000Z',
       payment_mode: 'MP05',
     },
@@ -223,9 +252,9 @@ const expected = {
     },
   },
   total_price: {
-    total: 3661.23,
+    total: 3761.23,
     tax: 660.22,
-    subtotal: 3001.01,
+    subtotal: 3101.01,
     it: {
       imponibile_previdenziale: '0',
       ritenuta_dacconto: '0',
@@ -233,6 +262,13 @@ const expected = {
       contributo_previdenziale: '0',
     },
     taxes: [
+      {
+        value: 0,
+        subtotal: 100,
+        tax: 0,
+        name: '0',
+        nature: 'N1',
+      },
       {
         value: 22,
         subtotal: 3001.01,
