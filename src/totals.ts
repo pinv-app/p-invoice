@@ -53,6 +53,10 @@ export const getTotals = (
       parseFloat(contributo_previdenziale.valore) || 0
     contributo_previdenziale_tax = parseFloat(contributo_previdenziale.tax || 0)
     contributo_previdenziale_natura = contributo_previdenziale.nature || ''
+
+    it.imponibile_previdenziale = imponibile_previdenziale || subtotal
+  } else {
+    it.imponibile_previdenziale = 0
   }
 
   // Gestione separata INPS (rivalsa INPS)
@@ -61,14 +65,6 @@ export const getTotals = (
     rivalsa_tax = parseFloat(rivalsa_inps.tax) || 0
 
     it.rivalsa_inps = (subtotal * rivalsa_percentuale) / 100
-
-    it.imponibile_previdenziale =
-      imponibile_previdenziale || subtotal + it.rivalsa_inps
-  } else {
-    it.imponibile_previdenziale =
-      Number(imponibile_previdenziale) >= 0
-        ? imponibile_previdenziale
-        : subtotal
   }
 
   // Calcolo contributo_previdenziale
@@ -78,7 +74,17 @@ export const getTotals = (
 
   // IVA su rivalsa INPS
   if (it.rivalsa_inps) {
-    totalTaxes = totalTaxes + (it.rivalsa_inps * rivalsa_tax) / 100
+    const taxRivalsa = (it.rivalsa_inps * rivalsa_tax) / 100
+    totalTaxes += taxRivalsa
+
+    // Iva Rivalsa INPS aggiunta al riepilogo IVA
+    taxes.push({
+      name: '',
+      value: rivalsa_tax.toString(),
+      tax: formatAmount(taxRivalsa),
+      subtotal: formatAmount(it.rivalsa_inps),
+      nature: '',
+    })
   }
 
   // IVA su contributo_previdenziale
@@ -97,24 +103,26 @@ export const getTotals = (
     })
   }
 
+  // Totale da pagare
+  total =
+    subtotal +
+    totalTaxes +
+    it.contributo_previdenziale +
+    it.rivalsa_inps
+
   // Ritenuta d'acconto
   if (
     gestione_ritenuta_dacconto &&
     (!customer_type || customer_type === 'company') &&
     parseFloat(ritenuta_dacconto) > 0
   ) {
-    it.imponibile_ritenuta = imponibile_ritenuta || subtotal
+    it.imponibile_ritenuta = imponibile_ritenuta || total
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
-  }
 
-  // Totale da pagare
-  total =
-    subtotal +
-    totalTaxes +
-    it.contributo_previdenziale +
-    it.rivalsa_inps -
-    it.ritenuta_dacconto
+    // Totale da pagare al netto della ritenuta d'acconto
+    total -= it.ritenuta_dacconto
+  }
 
   // Marca da bollo
   if (gestione_marca_da_bollo && cliente_paga_marca_da_bollo) {
