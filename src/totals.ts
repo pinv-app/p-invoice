@@ -19,7 +19,6 @@ export const getTotals = (
         rivalsa_inps = { tax: null, valore: null },
         contributo_previdenziale = { tax: '', valore: '' },
       } = {},
-      customer_type = '',
     } = {},
     total_price: {
       out_subtotal = [],
@@ -111,17 +110,16 @@ export const getTotals = (
     it.rivalsa_inps
 
   // Ritenuta d'acconto
-  if (
-    gestione_ritenuta_dacconto &&
-    (!customer_type || customer_type === 'company') &&
-    parseFloat(ritenuta_dacconto) > 0
-  ) {
-    it.imponibile_ritenuta = imponibile_ritenuta || total
+  if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
+    it.imponibile_ritenuta = total
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
 
     // Totale da pagare al netto della ritenuta d'acconto
     total -= it.ritenuta_dacconto
+  } else {
+    it.imponibile_ritenuta = 0
+    it.ritenuta_dacconto = 0
   }
 
   // Marca da bollo
