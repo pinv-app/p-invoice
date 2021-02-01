@@ -214,12 +214,12 @@ describe('Totals', () => {
       taxes,
       subtotal: 3765,
       tax: 828.3,
-      total: 3674.64,
+      total: 3840.3,
       it: {
         contributo_previdenziale: '0',
         imponibile_previdenziale: '0',
-        imponibile_ritenuta: '4593.3',
-        ritenuta_dacconto: '918.66',
+        imponibile_ritenuta: '3765',
+        ritenuta_dacconto: '753',
         rivalsa_inps: '0',
       },
     })
