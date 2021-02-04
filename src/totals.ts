@@ -111,15 +111,12 @@ export const getTotals = (
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
-    it.imponibile_ritenuta = subtotal
+    it.imponibile_ritenuta = imponibile_ritenuta || subtotal
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
 
     // Totale da pagare al netto della ritenuta d'acconto
     total -= it.ritenuta_dacconto
-  } else {
-    it.imponibile_ritenuta = 0
-    it.ritenuta_dacconto = 0
   }
 
   // Marca da bollo
