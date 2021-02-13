@@ -19,6 +19,10 @@ export const calculateDates = (
   date: string | Date = new Date(),
   paymentOptions: InvoicePayment[],
 ) => {
+  if (!Array.isArray(paymentOptions) || paymentOptions.length === 0) {
+    return paymentOptions
+  }
+
   const transformedDate = isDate(new Date(date)) ? new Date(date) : new Date()
   transformedDate.setHours(12, 0, 0, 0)
 
