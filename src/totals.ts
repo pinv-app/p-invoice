@@ -121,7 +121,7 @@ export const getTotals = (
 
   // Marca da bollo
   if (gestione_marca_da_bollo && cliente_paga_marca_da_bollo) {
-    total = total + marca_da_bollo
+    total = total + Number(marca_da_bollo || 0)
   }
 
   out_subtotal.forEach(({ subtotal }) => (total = total + subtotal))
