@@ -114,6 +114,72 @@ describe('Totals', () => {
     done()
   })
 
+  test('should calculate totals with contributo previdenziale ENASARCO', (done) => {
+    const taxes = [
+      {
+        name: '22',
+        value: '22',
+        tax: 50.82,
+        subtotal: 231,
+      },
+    ]
+
+    expect(
+      getTotals(231, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: false,
+            gestione_contributo_previdenziale: true,
+            marca_da_bollo: 2,
+            gestione_ritenuta_dacconto: false,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              tax: null,
+              valore: null,
+            },
+            contributo_previdenziale: {
+              tax: '0',
+              nature: 'N2.1',
+              valore: '7',
+              tipo: 'TC07',
+            },
+            cliente_paga_marca_da_bollo: false,
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+        },
+      }),
+    ).toEqual({
+      taxes: [
+        {
+          name: '22',
+          value: '22',
+          tax: 50.82,
+          subtotal: 231,
+        },
+        {
+          name: '',
+          value: '0',
+          tax: 0,
+          subtotal: 16.17,
+          nature: 'N2.1',
+        },
+      ],
+      subtotal: 231,
+      tax: 50.82,
+      total: 265.65,
+      it: {
+        contributo_previdenziale: '16.17',
+        imponibile_previdenziale: '231',
+        imponibile_ritenuta: '0',
+        ritenuta_dacconto: '0',
+        rivalsa_inps: '0',
+      },
+    })
+    done()
+  })
+
   test('should calculate totals with gestione separata inps', (done) => {
     const taxes = [
       {

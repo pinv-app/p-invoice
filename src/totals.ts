@@ -17,7 +17,7 @@ export const getTotals = (
         cliente_paga_marca_da_bollo = false,
         marca_da_bollo = 0,
         rivalsa_inps = { tax: null, valore: null },
-        contributo_previdenziale = { tax: '', valore: '' },
+        contributo_previdenziale = { tax: '', valore: '', tipo: '' },
       } = {},
     } = {},
     total_price: {
@@ -106,8 +106,14 @@ export const getTotals = (
   total =
     subtotal +
     totalTaxes +
-    it.contributo_previdenziale +
     it.rivalsa_inps
+  
+  // ENASARCO -> togliere importo dal totale anziché sommare
+  if (gestione_contributo_previdenziale && contributo_previdenziale.tipo === 'TC07') {
+    total -= it.contributo_previdenziale
+  } else {
+    total += it.contributo_previdenziale
+  }
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
