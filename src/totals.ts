@@ -40,8 +40,8 @@ export const getTotals = (
 
   const it = {
     contributo_previdenziale: 0,
-    imponibile_previdenziale: 0,
-    imponibile_ritenuta: 0,
+    imponibile_previdenziale,
+    imponibile_ritenuta,
     ritenuta_dacconto: 0,
     rivalsa_inps: 0,
   }
