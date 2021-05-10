@@ -14,10 +14,11 @@ export const getTotals = (
         gestione_ritenuta_dacconto = false,
         gestione_marca_da_bollo = false,
         ritenuta_dacconto = '',
+        percentuale_ritenuta_dacconto = '',
         cliente_paga_marca_da_bollo = false,
         marca_da_bollo = 0,
         rivalsa_inps = { tax: null, valore: null },
-        contributo_previdenziale = { tax: '', valore: '', tipo: '' },
+        contributo_previdenziale = { tax: '', valore: '', percentuale: '', tipo: '' },
       } = {},
     } = {},
     total_price: {
@@ -53,7 +54,7 @@ export const getTotals = (
     contributo_previdenziale_tax = parseFloat(contributo_previdenziale.tax || 0)
     contributo_previdenziale_natura = contributo_previdenziale.nature || ''
 
-    it.imponibile_previdenziale = imponibile_previdenziale || subtotal
+    it.imponibile_previdenziale = contributo_previdenziale.percentuale
   } else {
     it.imponibile_previdenziale = 0
   }
@@ -117,7 +118,7 @@ export const getTotals = (
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
-    it.imponibile_ritenuta = imponibile_ritenuta || subtotal
+    it.imponibile_ritenuta = percentuale_ritenuta_dacconto
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
 
