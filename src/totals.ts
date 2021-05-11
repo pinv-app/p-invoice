@@ -55,6 +55,7 @@ export const getTotals = (
     contributo_previdenziale_natura = contributo_previdenziale.nature || ''
 
     it.imponibile_previdenziale = (contributo_previdenziale.percentuale * subtotale_previdenziale) / 100
+    
   } else {
     it.imponibile_previdenziale = 0
   }
