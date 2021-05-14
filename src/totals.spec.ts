@@ -114,6 +114,71 @@ describe('Totals', () => {
     done()
   })
 
+  test('should calculate totals with contributo previdenziale not on 100% of subtotal', (done) => {
+    const taxes = [
+      {
+        name: '22',
+        value: '22',
+        tax: 50.82,
+        subtotal: 231,
+      },
+    ]
+
+    expect(
+      getTotals(231, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: false,
+            gestione_contributo_previdenziale: true,
+            marca_da_bollo: 2,
+            gestione_ritenuta_dacconto: false,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              tax: null,
+              valore: null,
+            },
+            contributo_previdenziale: {
+              tax: '12',
+              valore: '7',
+              percentuale: '50',
+            },
+            cliente_paga_marca_da_bollo: false,
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+        },
+      }),
+    ).toEqual({
+      taxes: [
+        {
+          name: '22',
+          value: '22',
+          tax: 50.82,
+          subtotal: 231,
+        },
+        {
+          name: '',
+          value: '12',
+          tax: 0.97,
+          subtotal: 8.09,
+          nature: '',
+        },
+      ],
+      subtotal: 231,
+      tax: 51.79,
+      total: 290.88,
+      it: {
+        contributo_previdenziale: '8.085',
+        imponibile_previdenziale: '115.5',
+        imponibile_ritenuta: '0',
+        ritenuta_dacconto: '0',
+        rivalsa_inps: '0',
+      },
+    })
+    done()
+  })
+
   test('should calculate totals with contributo previdenziale ENASARCO', (done) => {
     const taxes = [
       {
@@ -286,6 +351,55 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '3765',
         ritenuta_dacconto: '753',
+        rivalsa_inps: '0',
+      },
+    })
+    done()
+  })
+
+  test('should calculate totals with ritenuta acconto not on 100% of subtotal', (done) => {
+    const taxes = [
+      {
+        value: '22',
+        subtotal: 3765,
+        tax: 828.3,
+        name: '22',
+      },
+    ]
+
+    expect(
+      getTotals(3765, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: false,
+            gestione_contributo_previdenziale: false,
+            marca_da_bollo: 2,
+            gestione_ritenuta_dacconto: true,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              tax: '22',
+              valore: '12',
+            },
+            contributo_previdenziale: {
+              tax: '22',
+              valore: '11',
+            },
+            ritenuta_dacconto: '20',
+            percentuale_ritenuta_dacconto: '50',
+            cliente_paga_marca_da_bollo: false,
+          },
+        },
+      }),
+    ).toEqual({
+      taxes,
+      subtotal: 3765,
+      tax: 828.3,
+      total: 4216.8,
+      it: {
+        contributo_previdenziale: '0',
+        imponibile_previdenziale: '0',
+        imponibile_ritenuta: '1882.5',
+        ritenuta_dacconto: '376.5',
         rivalsa_inps: '0',
       },
     })

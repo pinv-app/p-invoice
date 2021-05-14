@@ -26,7 +26,6 @@ export const getTotals = (
       it: { imponibile_previdenziale = 0, imponibile_ritenuta = 0 } = {},
     } = {},
   } = Invoice || {}
-  console.log('NEW INVOICE PINV: ', Invoice);
 
   // ----------
 
@@ -54,7 +53,7 @@ export const getTotals = (
       parseFloat(contributo_previdenziale.valore) || 0
     contributo_previdenziale_tax = parseFloat(contributo_previdenziale.tax || 0)
     contributo_previdenziale_natura = contributo_previdenziale.nature || ''
-    it.imponibile_previdenziale = (contributo_previdenziale.percentuale * subtotal) / 100
+    it.imponibile_previdenziale = (parseFloat(contributo_previdenziale.percentuale || 100) * subtotal) / 100
   } else {
     it.imponibile_previdenziale = 0
   }
@@ -118,7 +117,7 @@ export const getTotals = (
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
-    it.imponibile_ritenuta = (percentuale_ritenuta_dacconto * subtotal) / 100
+    it.imponibile_ritenuta = (parseFloat(percentuale_ritenuta_dacconto || 100) * subtotal) / 100
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
 
