@@ -15,9 +15,15 @@ npm install
 npm test
 ```
 
+
 # Author
 
-[Palmabit](https://www.palmabit.com)
+[Pinv SRL](https://www.pinv.it)
+
+
+# License
+License: UNLICENSED
+
 
 ## Usage
 
