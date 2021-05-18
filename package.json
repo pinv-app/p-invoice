@@ -14,8 +14,8 @@
     "lint": "eslint 'src/**/*.js'",
     "testCI": "npm run test && cat coverage/lcov.info | coveralls"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "PINV SRL",
+  "license": "UNLICENSED",
   "dependencies": {
     "date-fns": "^2.14.0",
     "lodash": "^4.17.20"
