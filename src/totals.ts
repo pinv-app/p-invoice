@@ -29,8 +29,17 @@ export const getTotals = (
 
   // ----------
 
+  let excluded_total_art15 = taxes.reduce((acc, val) => {
+    if(val.nature === 'N1') {
+      acc += val.subtotal;
+    }
+    return acc;
+  }, 0)
+
   let totalTaxes = taxes.reduce((acc, val) => acc + val.tax, 0)
+
   let total = subtotal + totalTaxes
+  const temp_subtotal = subtotal - excluded_total_art15;
 
   let contributo_previdenziale_percentuale = 0,
     subtotale_previdenziale = 0,
@@ -53,7 +62,7 @@ export const getTotals = (
       parseFloat(contributo_previdenziale.valore) || 0
     contributo_previdenziale_tax = parseFloat(contributo_previdenziale.tax || 0)
     contributo_previdenziale_natura = contributo_previdenziale.nature || ''
-    it.imponibile_previdenziale = (parseFloat(contributo_previdenziale.percentuale || 100) * subtotal) / 100
+    it.imponibile_previdenziale = (parseFloat(contributo_previdenziale.percentuale || 100) * temp_subtotal) / 100
   } else {
     it.imponibile_previdenziale = 0
   }
@@ -63,7 +72,7 @@ export const getTotals = (
     rivalsa_percentuale = parseFloat(rivalsa_inps.valore) || 0
     rivalsa_tax = parseFloat(rivalsa_inps.tax) || 0
 
-    it.rivalsa_inps = (subtotal * rivalsa_percentuale) / 100
+    it.rivalsa_inps = (temp_subtotal * rivalsa_percentuale) / 100
   }
 
   // Calcolo contributo_previdenziale
@@ -117,7 +126,7 @@ export const getTotals = (
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
-    it.imponibile_ritenuta = (parseFloat(percentuale_ritenuta_dacconto || 100) * subtotal) / 100
+    it.imponibile_ritenuta = (parseFloat(percentuale_ritenuta_dacconto || 100) * temp_subtotal) / 100
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
 
