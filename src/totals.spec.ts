@@ -455,4 +455,77 @@ describe('Totals', () => {
     })
     done()
   })
+
+  test('should calculate totals with contributo previdenziale and art15', (done) => {
+    const taxes = [
+      {
+        name: '22',
+        value: '22',
+        tax: 220,
+        subtotal: 1000,
+      },
+      {
+        name: 'art15',
+        value: '0',
+        tax: 0,
+        subtotal: 500,
+        nature: 'N1',
+      }
+    ]
+
+    expect(
+      getTotals(1500, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: false,
+            gestione_contributo_previdenziale: false,
+            marca_da_bollo: 0,
+            gestione_ritenuta_dacconto: true,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              tax: null,
+              valore: null,
+            },
+            contributo_previdenziale: {
+              tax: '12',
+              valore: '7',
+            },
+            ritenuta_dacconto: '20',
+            percentuale_ritenuta_dacconto: '100',
+            cliente_paga_marca_da_bollo: false,
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+        },
+      }),
+    ).toEqual({
+      taxes: [
+        {
+          name: '22',
+          value: '22',
+          tax: 220,
+          subtotal: 1000,
+        },
+        {
+          name: 'art15',
+          value: '0',
+          tax: 0,
+          subtotal: 500,
+          nature: 'N1'
+        },
+      ],
+      subtotal: 1500,
+      tax: 220,
+      total: 1520,
+      it: {
+        contributo_previdenziale: '0',
+        imponibile_previdenziale: '0',
+        imponibile_ritenuta: '1000',
+        ritenuta_dacconto: '200',
+        rivalsa_inps: '0',
+      },
+    })
+    done()
+  })
 })
