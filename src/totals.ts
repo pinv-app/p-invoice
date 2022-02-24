@@ -126,7 +126,7 @@ export const getTotals = (
 
   // Ritenuta d'acconto
   if (gestione_ritenuta_dacconto && parseFloat(ritenuta_dacconto) > 0) {
-    it.imponibile_ritenuta = (parseFloat(percentuale_ritenuta_dacconto || 100) * temp_subtotal) / 100
+    it.imponibile_ritenuta = (parseFloat(percentuale_ritenuta_dacconto || 100) * (it.rivalsa_inps + temp_subtotal)) / 100
     it.ritenuta_dacconto =
       (it.imponibile_ritenuta * parseFloat(ritenuta_dacconto)) / 100
 

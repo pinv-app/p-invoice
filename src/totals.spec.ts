@@ -528,4 +528,66 @@ describe('Totals', () => {
     })
     done()
   })
+  test('should calculate totals with gestione separata INPS with Ritenuta di acconto', (done) => {
+    const taxes = [
+      {
+        name: '22',
+        value: '22',
+        tax: 22,
+        subtotal: 100,
+      },
+    ]
+
+    expect(
+      getTotals(100, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: true,
+            gestione_contributo_previdenziale: false,
+            marca_da_bollo: 0,
+            gestione_ritenuta_dacconto: true,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              tax: 22,
+              valore: 33,
+            },
+            ritenuta_dacconto: '20',
+            percentuale_ritenuta_dacconto: '100',
+            cliente_paga_marca_da_bollo: false,
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+        },
+      }),
+    ).toEqual({
+      taxes: [
+        {
+          name: '22',
+          value: '22',
+          tax: 22,
+          subtotal: 100,
+        },
+        {
+          name: '',
+          value: '22',
+          tax: 7.26,
+          subtotal: 33,
+          nature: '',
+        },
+      ],
+      subtotal: 100,
+      tax: 29.26,
+      total: 135.66,
+      it: {
+        contributo_previdenziale: '0',
+        imponibile_previdenziale: '0',
+        imponibile_ritenuta: '133',
+        ritenuta_dacconto: '26.6',
+        rivalsa_inps: '33',
+      },
+    })
+    done()
+  })
 })
+
