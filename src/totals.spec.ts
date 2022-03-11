@@ -535,7 +535,7 @@ describe('Totals', () => {
         value: '22',
         tax: 22,
         subtotal: 100,
-      },
+      }
     ]
 
     expect(
@@ -585,6 +585,68 @@ describe('Totals', () => {
         imponibile_ritenuta: '133',
         ritenuta_dacconto: '26.6',
         rivalsa_inps: '33',
+      },
+    })
+    done()
+  })
+
+  test('should calculate totals with gestione separata inps and art15', (done) => {
+    const taxes = [
+      {
+        name: '22',
+        value: '22',
+        tax: 22,
+        subtotal: 100,
+      }
+    ]
+
+    expect(
+      getTotals(100, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: true,
+            gestione_contributo_previdenziale: false,
+            marca_da_bollo: null,
+            gestione_ritenuta_dacconto: false,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              nature: 'N1',
+              tax: '20.00',
+              valore: '10'
+            },
+            ritenuta_dacconto: null,
+            cliente_paga_marca_da_bollo: false,
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+        },
+      }),
+    ).toEqual({
+      taxes: [
+        {
+          name: '22',
+          value: '22',
+          tax: 22,
+          subtotal: 100,
+        },
+        {
+          name: '',
+          value: '20',
+          tax: 2,
+          subtotal: 10,
+          nature: 'N1'
+        },
+      ],
+      subtotal: 100,
+      tax: 24,
+      total: 134,
+      it: {
+        contributo_previdenziale: '0',
+        imponibile_previdenziale: '0',
+        imponibile_ritenuta: '0',
+        ritenuta_dacconto: '0',
+        rivalsa_inps: '10',
       },
     })
     done()

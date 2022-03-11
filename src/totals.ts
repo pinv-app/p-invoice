@@ -46,7 +46,8 @@ export const getTotals = (
     contributo_previdenziale_tax = 0,
     contributo_previdenziale_natura = '',
     rivalsa_percentuale = 0,
-    rivalsa_tax = 0
+    rivalsa_tax = 0,
+    rivalsa_natura = ''
 
   const it = {
     contributo_previdenziale: 0,
@@ -71,6 +72,7 @@ export const getTotals = (
   if (gestione_separata_inps) {
     rivalsa_percentuale = parseFloat(rivalsa_inps.valore) || 0
     rivalsa_tax = parseFloat(rivalsa_inps.tax) || 0
+    rivalsa_natura = rivalsa_inps.nature || ''
 
     it.rivalsa_inps = (temp_subtotal * rivalsa_percentuale) / 100
   }
@@ -91,7 +93,7 @@ export const getTotals = (
       value: rivalsa_tax.toString(),
       tax: formatAmount(taxRivalsa),
       subtotal: formatAmount(it.rivalsa_inps),
-      nature: '',
+      nature: rivalsa_natura,
     })
   }
 
