@@ -10,6 +10,7 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
+  mode: 'production',
   target: 'node',
   resolve: {
     extensions: ['.ts', '.js'],
