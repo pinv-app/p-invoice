@@ -1,8 +1,8 @@
-import { calculateDates } from './payments'
+import { calculateDates } from './payments';
 
 describe('Dates', () => {
   test('should recalculate dates', () => {
-    const date = new Date('2020-06-12')
+    const date = new Date('2020-06-12');
 
     const payments = [
       {
@@ -57,7 +57,7 @@ describe('Dates', () => {
         payed: false,
         payment_date: new Date('2020-07-31'),
       },
-    ]
+    ];
 
     const expected = [
       {
@@ -112,8 +112,8 @@ describe('Dates', () => {
         payed: false,
         payment_date: '2020-07-06T10:00:00.000Z',
       },
-    ]
+    ];
 
-    expect(calculateDates(date, payments)).toEqual(expected)
-  })
-})
+    expect(calculateDates(payments, date)).toEqual(expected);
+  });
+});

@@ -1,4 +1,4 @@
-import { getSubtotal } from './subtotal'
+import { getSubtotal } from './subtotal';
 
 describe('Subtotal', () => {
   test('should calculate items subtotal', (done) => {
@@ -17,9 +17,9 @@ describe('Subtotal', () => {
         },
         quantity: 3,
       },
-    ]
+    ];
 
-    expect(getSubtotal(items)).toBe(25)
-    done()
-  })
-})
+    expect(getSubtotal(items)).toBe(25);
+    done();
+  });
+});

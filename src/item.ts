@@ -1,5 +1,5 @@
-import { InvoiceItem, GetItemOptions } from './types'
-import { formatAmount } from './utils/formatAmount'
+import { InvoiceItem, GetItemOptions } from './types';
+import { formatAmount } from './utils/formatAmount';
 
 export const getItem = (
   item: InvoiceItem,
@@ -18,21 +18,23 @@ export const getItem = (
       } = {},
       weight: { net = 0 } = {},
     } = {},
-  } = item
+  } = item;
 
-  const { sold_by_weight } = options || {}
+  const { sold_by_weight } = options || {};
 
   let subtotal: number;
 
   if (sold_by_weight && net !== 0) {
-    subtotal = formatAmount(list * net, 6)
+    subtotal = formatAmount(list * net, 6);
   } else {
-    subtotal = formatAmount(quantity * list, 6)
+    subtotal = formatAmount(quantity * list, 6);
   }
 
-  const { pricing } = item.product || {}
-  const productPricing = { ...pricing, list, tax: { value: taxValue, name: taxName, nature } }
-  const product = { ...item.product, pricing: productPricing, subtotal, tax: taxValue }
+  const { pricing } = item.product || {};
+  const productPricing = { ...pricing, list, tax: { value: taxValue, name: taxName, nature } };
+  const product = {
+    ...item.product, pricing: productPricing, subtotal, tax: taxValue,
+  };
 
-  return { ...item, product }
-}
+  return { ...item, product };
+};

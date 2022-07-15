@@ -1,4 +1,4 @@
-import { getTaxes } from './taxes'
+import { getTaxes } from './taxes';
 
 describe('Subtotal', () => {
   test('should calculate subtotal from items', (done) => {
@@ -38,14 +38,20 @@ describe('Subtotal', () => {
         },
         quantity: 1,
       },
-    ]
+    ];
 
     expect(getTaxes(items)).toEqual([
-      { name: '0', value: 0, nature: 'N1', subtotal: 10, tax: 0 },
-      { name: '10', value: 10, nature: '', subtotal: 18, tax: 1.8 },
-      { name: '22', value: 22, nature: '', subtotal: 20, tax: 4.4 },
-    ])
+      {
+        name: '0', value: 0, nature: 'N1', subtotal: 10, tax: 0,
+      },
+      {
+        name: '10', value: 10, nature: '', subtotal: 18, tax: 1.8,
+      },
+      {
+        name: '22', value: 22, nature: '', subtotal: 20, tax: 4.4,
+      },
+    ]);
 
-    done()
-  })
-})
+    done();
+  });
+});

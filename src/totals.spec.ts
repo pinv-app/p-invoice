@@ -1,4 +1,4 @@
-import { getTotals } from './totals'
+import { getTotals } from './totals';
 
 describe('Totals', () => {
   test('should calculate totals without options', (done) => {
@@ -9,7 +9,7 @@ describe('Totals', () => {
         tax: 3.08,
         name: '22',
       },
-    ]
+    ];
 
     expect(
       getTotals(14, taxes, {
@@ -46,9 +46,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with contributo previdenziale', (done) => {
     const taxes = [
@@ -58,7 +58,7 @@ describe('Totals', () => {
         tax: 50.82,
         subtotal: 231,
       },
-    ]
+    ];
 
     expect(
       getTotals(231, taxes, {
@@ -110,9 +110,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with contributo previdenziale not on 100% of subtotal', (done) => {
     const taxes = [
@@ -122,7 +122,7 @@ describe('Totals', () => {
         tax: 50.82,
         subtotal: 231,
       },
-    ]
+    ];
 
     expect(
       getTotals(231, taxes, {
@@ -175,9 +175,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with contributo previdenziale ENASARCO', (done) => {
     const taxes = [
@@ -187,7 +187,7 @@ describe('Totals', () => {
         tax: 50.82,
         subtotal: 231,
       },
-    ]
+    ];
 
     expect(
       getTotals(231, taxes, {
@@ -241,9 +241,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with gestione separata inps', (done) => {
     const taxes = [
@@ -253,7 +253,7 @@ describe('Totals', () => {
         tax: 50.82,
         subtotal: 231,
       },
-    ]
+    ];
 
     expect(
       getTotals(231, taxes, {
@@ -305,9 +305,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '11.55',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with ritenuta acconto', (done) => {
     const taxes = [
@@ -317,7 +317,7 @@ describe('Totals', () => {
         tax: 828.3,
         name: '22',
       },
-    ]
+    ];
 
     expect(
       getTotals(3765, taxes, {
@@ -353,9 +353,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '753',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with ritenuta acconto not on 100% of subtotal', (done) => {
     const taxes = [
@@ -365,7 +365,7 @@ describe('Totals', () => {
         tax: 828.3,
         name: '22',
       },
-    ]
+    ];
 
     expect(
       getTotals(3765, taxes, {
@@ -402,9 +402,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '376.5',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with marca da bollo', (done) => {
     const taxes = [
@@ -414,7 +414,7 @@ describe('Totals', () => {
         tax: 47.96,
         name: '22',
       },
-    ]
+    ];
 
     expect(
       getTotals(218, taxes, {
@@ -452,9 +452,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with contributo previdenziale and art15', (done) => {
     const taxes = [
@@ -470,8 +470,8 @@ describe('Totals', () => {
         tax: 0,
         subtotal: 500,
         nature: 'N1',
-      }
-    ]
+      },
+    ];
 
     expect(
       getTotals(1500, taxes, {
@@ -512,7 +512,7 @@ describe('Totals', () => {
           value: '0',
           tax: 0,
           subtotal: 500,
-          nature: 'N1'
+          nature: 'N1',
         },
       ],
       subtotal: 1500,
@@ -525,9 +525,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '200',
         rivalsa_inps: '0',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
   test('should calculate totals with gestione separata INPS with Ritenuta di acconto', (done) => {
     const taxes = [
       {
@@ -535,8 +535,8 @@ describe('Totals', () => {
         value: '22',
         tax: 22,
         subtotal: 100,
-      }
-    ]
+      },
+    ];
 
     expect(
       getTotals(100, taxes, {
@@ -586,9 +586,9 @@ describe('Totals', () => {
         ritenuta_dacconto: '26.6',
         rivalsa_inps: '33',
       },
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   test('should calculate totals with gestione separata inps and art15', (done) => {
     const taxes = [
@@ -597,8 +597,8 @@ describe('Totals', () => {
         value: '22',
         tax: 22,
         subtotal: 100,
-      }
-    ]
+      },
+    ];
 
     expect(
       getTotals(100, taxes, {
@@ -612,7 +612,7 @@ describe('Totals', () => {
             rivalsa_inps: {
               nature: 'N1',
               tax: '20.00',
-              valore: '10'
+              valore: '10',
             },
             ritenuta_dacconto: null,
             cliente_paga_marca_da_bollo: false,
@@ -635,7 +635,7 @@ describe('Totals', () => {
           value: '20',
           tax: 2,
           subtotal: 10,
-          nature: 'N1'
+          nature: 'N1',
         },
       ],
       subtotal: 100,
@@ -648,8 +648,7 @@ describe('Totals', () => {
         ritenuta_dacconto: '0',
         rivalsa_inps: '10',
       },
-    })
-    done()
-  })
-})
-
+    });
+    done();
+  });
+});

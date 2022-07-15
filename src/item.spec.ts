@@ -1,4 +1,4 @@
-import { getItem } from './item'
+import { getItem } from './item';
 
 describe('Item', () => {
   test('should calculate item total', (done) => {
@@ -9,7 +9,7 @@ describe('Item', () => {
           list: 10,
           tax: {
             name: '22',
-            value: 22
+            value: 22,
           },
         },
       },
@@ -42,7 +42,7 @@ describe('Item', () => {
           list: 10.54,
           tax: {
             name: '22',
-            value: 22
+            value: 22,
           },
         },
       },
@@ -77,7 +77,7 @@ describe('Item', () => {
           list: 10,
           tax: {
             name: '22',
-            value: 22
+            value: 22,
           },
         },
         weight: {
@@ -122,7 +122,7 @@ describe('Item', () => {
           list: 10,
           tax: {
             name: '22',
-            value: 22
+            value: 22,
           },
         },
         weight: {

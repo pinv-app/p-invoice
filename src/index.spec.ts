@@ -1,4 +1,4 @@
-import calculateInvoice from './index'
+import calculateInvoice from './index';
 
 const invoice = {
   _id: '5e01e244593012001183aa41',
@@ -150,7 +150,7 @@ const invoice = {
     customer_type: 'company',
   },
   reference_docs: [],
-}
+};
 
 const expected = {
   _id: '5e01e244593012001183aa41',
@@ -334,8 +334,8 @@ const expected = {
     customer_type: 'company',
   },
   reference_docs: [],
-}
+};
 
 it('calculates the invoice', () => {
-  expect(calculateInvoice(invoice)).toMatchObject(expected)
-})
+  expect(calculateInvoice(invoice)).toMatchObject(expected);
+});
