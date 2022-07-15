@@ -15,6 +15,11 @@ npm install
 npm test
 ```
 
+## Build
+
+```bash
+npm run build
+```
 
 # Author
 
