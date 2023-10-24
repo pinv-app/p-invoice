@@ -44,6 +44,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -108,6 +109,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '231',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -173,6 +175,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '115.5',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -239,6 +242,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '231',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -303,6 +307,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '11.55',
       },
     });
@@ -351,6 +356,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '3765',
         ritenuta_dacconto: '753',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -400,6 +406,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '1882.5',
         ritenuta_dacconto: '376.5',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -450,6 +457,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -523,6 +531,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '1000',
         ritenuta_dacconto: '200',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '0',
       },
     });
@@ -584,6 +593,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '133',
         ritenuta_dacconto: '26.6',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '33',
       },
     });
@@ -646,6 +656,7 @@ describe('Totals', () => {
         imponibile_previdenziale: '0',
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
+        ritenuta_enasarco: '0',
         rivalsa_inps: '10',
       },
     });
