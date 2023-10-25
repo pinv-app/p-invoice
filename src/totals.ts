@@ -19,7 +19,15 @@ export const getTotals = (
         marca_da_bollo = 0,
         rivalsa_inps = { tax: null, valore: null },
         contributo_previdenziale = {
-          tax: '', valore: '', percentuale: '', tipo: '',
+          tax: '',
+          valore: '',
+          percentuale: '',
+          tipo: '',
+          enasarco: {
+            enabled: false,
+            percentuale: 1,
+            ritenuta: '',
+          },
         },
       } = {},
     } = {},
@@ -56,6 +64,7 @@ export const getTotals = (
     imponibile_previdenziale,
     imponibile_ritenuta,
     ritenuta_dacconto: 0,
+    ritenuta_enasarco: 0,
     rivalsa_inps: 0,
   };
 
@@ -133,6 +142,13 @@ export const getTotals = (
     total -= it.ritenuta_dacconto;
   }
 
+  // Ritenuta ENASARCO
+  if (gestione_contributo_previdenziale && contributo_previdenziale.tipo === 'TC07' && contributo_previdenziale.enasarco?.enabled) {
+    it.ritenuta_enasarco = (temp_subtotal * parseFloat(contributo_previdenziale.enasarco.percentuale)) / 100;
+    // Totale da pagare al netto della ritenuta ENASARCO
+    total -= it.ritenuta_enasarco;
+  }
+
   // Marca da bollo
   if (gestione_marca_da_bollo && cliente_paga_marca_da_bollo) {
     total += Number(marca_da_bollo || 0);
@@ -150,6 +166,7 @@ export const getTotals = (
       imponibile_previdenziale: it.imponibile_previdenziale.toString(),
       imponibile_ritenuta: it.imponibile_ritenuta.toString(),
       ritenuta_dacconto: it.ritenuta_dacconto.toString(),
+      ritenuta_enasarco: it.ritenuta_enasarco.toString(),
       rivalsa_inps: it.rivalsa_inps.toString(),
     },
   };

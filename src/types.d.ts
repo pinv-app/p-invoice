@@ -87,6 +87,8 @@ export declare class InvoiceTotalsOptions {
 
   ritenuta_dacconto: string;
 
+  ritenuta_enasarco: string;
+
   rivalsa_inps: string;
 }
 
