@@ -1,5 +1,5 @@
 {
-  "name": "p-invoice",
+  "name": "@pinv/p-invoice",
   "version": "0.6.1",
   "description": "",
   "main": "dist",
