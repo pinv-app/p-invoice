@@ -145,8 +145,12 @@ export const getTotals = (
   // Ritenuta ENASARCO
   if (gestione_contributo_previdenziale && contributo_previdenziale.tipo === 'TC07' && contributo_previdenziale.enasarco?.enabled) {
     it.ritenuta_enasarco = (temp_subtotal * parseFloat(contributo_previdenziale.enasarco.percentuale)) / 100;
+    // Riaggiunge al totale il contributo previdenziale
+    total += it.contributo_previdenziale;
     // Totale da pagare al netto della ritenuta ENASARCO
     total -= it.ritenuta_enasarco;
+    // Resetta il contributo previdenziale
+    it.contributo_previdenziale = 0;
   }
 
   // Marca da bollo
