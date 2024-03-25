@@ -297,13 +297,6 @@ describe('Totals', () => {
           tax: 50.82,
           subtotal: 231,
         },
-        {
-          name: '',
-          value: '0',
-          tax: 0,
-          subtotal: 16.17,
-          nature: 'N2.1',
-        },
       ],
       subtotal: 231,
       tax: 50.82,
@@ -314,6 +307,73 @@ describe('Totals', () => {
         imponibile_ritenuta: '0',
         ritenuta_dacconto: '0',
         ritenuta_enasarco: '18.48',
+        rivalsa_inps: '0',
+      },
+    });
+    done();
+  });
+
+  test('should calculate totals with both ritenuta d\'acconto and ritenuta d\'acconto ENASARCO', (done) => {
+    const taxes = [
+      {
+        name: '22',
+        value: '22',
+        tax: 22,
+        subtotal: 100,
+      },
+    ];
+
+    expect(
+      getTotals(100, taxes, {
+        invoice_option: {
+          it: {
+            gestione_separata_inps: false,
+            gestione_contributo_previdenziale: true,
+            marca_da_bollo: 2,
+            gestione_ritenuta_dacconto: true,
+            gestione_marca_da_bollo: false,
+            rivalsa_inps: {
+              tax: null,
+              valore: null,
+            },
+            contributo_previdenziale: {
+              tax: '0',
+              nature: 'N2.2',
+              valore: '0',
+              tipo: 'TC07',
+              enasarco: {
+                enabled: true,
+                percentuale: 1,
+                ritenuta: 'RT04',
+              },
+            },
+            ritenuta_dacconto: '20',
+            cliente_paga_marca_da_bollo: false,
+            tipo_ritenuta: 'RT02',
+          },
+        },
+        total_price: {
+          out_subtotal: [],
+        },
+      }),
+    ).toEqual({
+      taxes: [
+        {
+          name: '22',
+          value: '22',
+          tax: 22,
+          subtotal: 100,
+        },
+      ],
+      subtotal: 100,
+      tax: 22,
+      total: 101,
+      it: {
+        contributo_previdenziale: '0',
+        imponibile_previdenziale: '100',
+        imponibile_ritenuta: '100',
+        ritenuta_dacconto: '20',
+        ritenuta_enasarco: '1',
         rivalsa_inps: '0',
       },
     });

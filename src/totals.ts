@@ -107,7 +107,7 @@ export const getTotals = (
   }
 
   // IVA su contributo_previdenziale
-  if (gestione_contributo_previdenziale) {
+  if (gestione_contributo_previdenziale && (contributo_previdenziale.tipo !== 'TC07' || !contributo_previdenziale.enasarco?.enabled)) {
     const contributoTax = (it.contributo_previdenziale * contributo_previdenziale_tax) / 100;
     totalTaxes += contributoTax;
 
